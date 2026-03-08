@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избавьтесь от головной боли с ООО за 7 дней — REGFILE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #0B0F19;
+            --color-bg-elevated: #111827;
+            --color-bg-card: #1A1F2E;
+            --color-border: #2A3142;
+            --color-text: #F0F4F8;
+            --color-text-muted: #94A3B8;
+            --color-text-dim: #64748B;
+            --color-success: #10B981;
+            --color-success-dim: rgba(16, 185, 129, 0.1);
+            --color-danger: #EF4444;
+            --color-danger-dim: rgba(239, 68, 68, 0.1);
+            --color-amber: #F59E0B;
+            --shadow-glow: 0 0 60px rgba(16, 185, 129, 0.15);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient Effects */
+        .ambient-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse 80% 40% at 50% 0%, rgba(16, 185, 129, 0.08), transparent),
+                radial-gradient(ellipse 50% 30% at 90% 80%, rgba(239, 68, 68, 0.03), transparent);
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-success), #34D399);
+            z-index: 1000;
+            transition: width 0.3s var(--ease-out-expo);
+            width: 33%;
+        }
+
+        .progress-bar.step-2 { width: 66%; }
+        .progress-bar.step-3 { width: 100%; }
+
+        /* Screen 1 - Hero + Form */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 24px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero.hidden {
+            display: none !important;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-success-dim);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--color-success);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            width: fit-content;
+            animation: slideInLeft 0.6s var(--ease-out-expo);
+        }
+
+        .badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--color-success);
+            border-radius: 50%;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        h1 {
+            font-size: clamp(32px, 8vw, 52px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.6s var(--ease-out-expo) 0.1s both;
+        }
+
+        h1 .highlight {
+            color: var(--color-success);
+            display: block;
+            position: relative;
+        }
+
+        h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: rgba(16, 185, 129, 0.2);
+            z-index: -1;
+            transform: skewX(-12deg);
+        }
+
+        .subtitle {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--color-text-muted);
+            margin-bottom: 28px;
+            max-width: 100%;
+            animation: fadeInUp 0.6s var(--ease-out-expo) 0.15s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pain Block - Emotional Design */
+        .pain-block {
+            background: linear-gradient(145deg, var(--color-bg-card) 0%, rgba(239, 68, 68, 0.05) 100%);
+            border: 1px solid var(--color-border);
+            border-left: 3px solid var(--color-danger);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.6s var(--ease-out-expo) 0.2s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pain-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .pain-block h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-danger);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pain-block h3::before {
+            content: '⚠️';
+            font-size: 14px;
+        }
+
+        .pain-list {
+            list-style: none;
+        }
+
+        .pain-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--color-text);
+            opacity: 0;
+            animation: fadeInRight 0.4s var(--ease-out-expo) forwards;
+        }
+
+        .pain-list li:nth-child(1) { animation-delay: 0.3s; }
+        .pain-list li:nth-child(2) { animation-delay: 0.4s; }
+        .pain-list li:nth-child(3) { animation-delay: 0.5s; }
+        .pain-list li:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .pain-list li::before {
+            content: '×';
+            color: var(--color-danger);
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--color-danger-dim);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Form */
+        .form-container {
+            background: linear-gradient(145deg, var(--color-bg-card) 0%, var(--color-bg-elevated) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 28px 24px;
+            position: relative;
+            animation: fadeInUp 0.6s var(--ease-out-expo) 0.25s both;
+            box-shadow: var(--shadow-card);
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), transparent 50%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .form-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-success-dim);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: var(--color-text-muted);
+            margin-bottom: 24px;
+            margin-left: 52px;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            margin-bottom: 6px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 16px 18px;
+            font-size: 16px;
+            font-family: inherit;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            color: var(--color-text);
+            transition: all 0.2s;
+        }
+
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--color-success);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        input[type="email"]::placeholder {
+            color: var(--color-text-dim);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3), var(--shadow-glow);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .btn-primary.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes spin {
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        .trust-badges {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--color-text-dim);
+        }
+
+        .trust-badge svg {
+            width: 14px;
+            height: 14px;
+            color: var(--color-success);
+        }
+
+        /* Screen 2 - Lead Magnet */
+        .lead-magnet {
+            display: none;
+            min-height: 100vh;
+            padding: 24px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .lead-magnet.active {
+            display: block;
+            animation: fadeIn 0.5s var(--ease-out-expo);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lead-header {
+            text-align: center;
+            margin-bottom: 28px;
+            animation: scaleIn 0.5s var(--ease-spring) 0.1s both;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            box-shadow: var(--shadow-glow);
+            animation: successPop 0.6s var(--ease-spring) 0.2s both;
+        }
+
+        @keyframes successPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .lead-header h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .lead-header p {
+            color: var(--color-text-muted);
+            font-size: 15px;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--color-text-dim);
+        }
+
+        .progress-tracker .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .progress-tracker .dot.active {
+            background: var(--color-success);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+
+        .progress-tracker .dot.completed {
+            background: var(--color-success);
+        }
+
+        /* Checklist */
+        .checklist-container {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .checklist-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checklist-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--color-success);
+            border-radius: 2px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: var(--color-bg-elevated);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            border: 1px solid transparent;
+            opacity: 0;
+            animation: slideInUp 0.4s var(--ease-out-expo) forwards;
+        }
+
+        .checklist-item:nth-child(2) { animation-delay: 0.1s; }
+        .checklist-item:nth-child(3) { animation-delay: 0.2s; }
+        .checklist-item:nth-child(4) { animation-delay: 0.3s; }
+        .checklist-item:nth-child(5) { animation-delay: 0.4s; }
+        .checklist-item:nth-child(6) { animation-delay: 0.5s; }
+        .checklist-item:nth-child(7) { animation-delay: 0.6s; }
+        .checklist-item:nth-child(8) { animation-delay: 0.7s; }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .checklist-item:hover {
+            background: var(--color-bg);
+            border-color: var(--color-border);
+            transform: translateX(4px);
+        }
+
+        .checklist-item.checked {
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s var(--ease-spring);
+            margin-top: 2px;
+        }
+
+        .checklist-item:hover .checkbox {
+            border-color: var(--color-success);
+        }
+
+        .checklist-item.checked .checkbox {
+            background: var(--color-success);
+            border-color: var(--color-success);
+            transform: scale(1.1);
+        }
+
+        .checkbox svg {
+            width: 14px;
+            height: 14px;
+            color: white;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s var(--ease-spring);
+        }
+
+        .checklist-item.checked .checkbox svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-text {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            transition: all 0.3s;
+        }
+
+        .checklist-item.checked .item-text {
+            color: var(--color-success);
+        }
+
+        .item-hint {
+            font-size: 13px;
+            color: var(--color-text-dim);
+            line-height: 1.5;
+            transition: all 0.3s;
+        }
+
+        .checklist-item.checked .item-hint {
+            color: var(--color-text-muted);
+        }
+
+        .item-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--color-amber);
+            margin-top: 6px;
+            display: inline-block;
+            padding: 2px 8px;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 4px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 16px;
+            animation: fadeInUp 0.5s var(--ease-out-expo) 0.8s both;
+        }
+
+        .cta-section h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .cta-section p {
+            font-size: 14px;
+            color: var(--color-text-muted);
+            margin-bottom: 16px;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            background: transparent;
+            color: var(--color-success);
+            border: 1.5px solid var(--color-success);
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-success);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+        }
+
+        /* Completion State */
+        .completion-message {
+            display: none;
+            text-align: center;
+            padding: 16px;
+            background: var(--color-success-dim);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            margin-top: 16px;
+            animation: fadeIn 0.4s var(--ease-out-expo);
+        }
+
+        .completion-message.show {
+            display: block;
+        }
+
+        .completion-message p {
+            color: var(--color-success);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            .hero, .lead-magnet {
+                padding: 40px;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .form-container {
+                padding: 32px;
+            }
+
+            .form-subtitle {
+                margin-left: 0;
+            }
+
+            .checklist-container {
+                padding: 28px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero, .lead-magnet {
+                max-width: 680px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    <div class="grain"></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Screen 1: Hero + Form -->
+    <section class="hero" id="hero">
+        <div class="badge">Работаем по всей России</div>
+        
+        <h1>
+            Избавьтесь от головной боли
+            <span class="highlight">за 7 дней</span>
+        </h1>
+        
+        <p class="subtitle">
+            10 000 предпринимателей закрыли ООО через нас. 
+            Никто не сходил в налоговую. Мы сделаем всё, пока вы занимаетесь бизнесом.
+        </p>
+
+        <!-- Pain Points -->
+        <div class="pain-block">
+            <h3>Если вы узнали себя:</h3>
+            <ul class="pain-list">
+                <li>Компания стоит «мертвым грузом», а бухгалтер просит деньги за «воздух»</li>
+                <li>Страшно заходить в личный кабинет ФНС — там красные цифры и пени</li>
+                <li>Учредитель в другом городе, подписывать документы — квест</li>
+                <li>«Сам разберусь» уже длится второй год</li>
+            </ul>
+        </div>
+
+        <!-- Form -->
+        <div class="form-container">
+            <div class="form-header">
+                <div class="form-icon">📋</div>
+                <h3 class="form-title">Бесплатный чек-лист</h3>
+            </div>
+            
+            <p class="form-subtitle">
+                «7 способов закрыть ООО — от дешёвого к быстрому». 
+                Скачайте и выберите свой вариант за 5 минут.
+            </p>
+            
+            <form id="leadForm">
+                <div class="input-group">
+                    <label for="email">Email для отправки материала</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="vasya@company.ru" 
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    Получить чек-лист
+                </button>
+            </form>
+
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <span>Никакого спама</span>
+                </div>
+                <div class="trust-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Только чек-лист + одно письмо</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 2: Lead Magnet -->
+    <section class="lead-magnet" id="leadMagnet">
+        <div class="lead-header">
+            <div class="success-icon">✓</div>
+            <h2>Чек-лист у вас!</h2>
+            <p>Отмечайте пункты по мере чтения — так проще запомнить</p>
+        </div>
+
+        <div class="progress-tracker" id="progressTracker">
+            <span>Прогресс:</span>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <span id="progressText">0/7</span>
+        </div>
+
+        <div class="checklist-container">
+            <h3 class="checklist-title">7 способов закрыть ООО</h3>
+            
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="checkbox">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">1. Самостоятельно через налоговую</div>
+                    <div class="item-hint">Дёшево (800₽), но долго (2-4 месяца). Риски: ошибки в документах, очереди, допросы.</div>
+                    <span class="item-price">~800₽ + время</span>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="checkbox">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">2. Через МФЦ</div>
+                    <div class="item-hint">То же самое, но с посредником. Плюс: меньше очередей. Минус: всё ещё долго.</div>
+                    <span class="item-price">~800₽ + время</span>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="checkbox">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">3. Банкротство добровольное</div>
+                    <div class="item-hint">Если есть долги. Сложно, дорого (50-150к), но снимает ответственность с учредителей.</div>
+                    <span class="item-price">50 000 — 150 000₽</span>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="checkbox">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">4. Альтернативная ликвидация</div>
+                    <div class="item-hint">Через продажу фирме-ликвидатору. Быстро (1-2 месяца), но дорого и не всегда чисто.</div>
+                    <span class="item-price">30 000 — 80 000₽</span>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="checkbox">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">5. Исключение из ЕГРЮЛ</div>
+                    <div class="item-hint">Если нет деятельности 12+ месяцев. Налоговая сама исключает, но сроки непредсказуемы.</div>
+                    <span class="item-price">Бесплатно, но ждать</span>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="checkbox">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">6. Реорганизация (присоединение)</div>
+                    <div class="item-hint">Сливаете ООО в другую компанию. Сложно, но эффективно для группы компаний.</div>
+                    <span class="item-price">От 40 000₽</span>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleCheck(this)">
+                <div class="checkbox">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">7. Через REGFILE — удалённо за 7 дней</div>
+                    <div class="item-hint">Вы никуда не ходите. Мы готовим документы, подаём электронно, контролируем процесс.</div>
+                    <span class="item-price">От 15 000₽</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="completion-message" id="completionMessage">
+            <p>🎉 Отлично! Вы ознакомились со всеми вариантами. Готовы обсудить вашу ситуацию?</p>
+        </div>
+
+        <div class="cta-section">
+            <h3>Не хотите разбираться самостоятельно?</h3>
+            <p>Мы закроем ООО за вас. Без налоговой, без очередей, без стресса.</p>
+            <a href="https://regfile.ru" class="btn-secondary">
+                <span>📞</span> Заказать консультацию
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Form handling with loading state
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const btn = document.getElementById('submitBtn');
+            
+            if (email && email.includes('@')) {
+                // Show loading state
+                btn.classList.add('loading');
+                btn.textContent = 'Отправляем...';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Update progress bar
+                    document.getElementById('progressBar').classList.add('step-2');
+                    
+                    // Hide hero, show lead magnet
+                    document.getElementById('hero').classList.add('hidden');
+                    document.getElementById('leadMagnet').classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    // Analytics event (placeholder)
+                    console.log('Lead captured:', email);
+                }, 800);
+            }
+        });
+
+        // Checkbox toggle with satisfying animation
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const items = document.querySelectorAll('.checklist-item');
+            const checked = document.querySelectorAll('.checklist-item.checked');
+            const dots = document.querySelectorAll('.progress-tracker .dot');
+            const progressText = document.getElementById('progressText');
+            const completionMessage = document.getElementById('completionMessage');
+            
+            const count = checked.length;
+            const total = items.length;
+            
+            progressText.textContent = `${count}/${total}`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index < count) {
+                    dot.classList.add('completed');
+                } else if (index === count) {
+                    dot.classList.add('active');
+                }
+            });
+            
+            // Show completion message
+            if (count === total) {
+                completionMessage.classList.add('show');
+                document.getElementById('progressBar').classList.add('step-3');
+            }
+        }
+
+        // Initialize first dot as active
+        updateProgress();
+    </script>
+</body>
+</html>
