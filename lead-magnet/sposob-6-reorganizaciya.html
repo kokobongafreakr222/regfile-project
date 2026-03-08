@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Способ 6: Реорганизация (присоединение) — Regfile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .entry {
+            background: #fef9e7;
+            border-left: 4px solid #f39c12;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        .entry h2 {
+            color: #d68910;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        h2 {
+            color: #2c3e50;
+            margin: 30px 0 15px;
+            font-size: 1.4em;
+        }
+        h3 {
+            color: #34495e;
+            margin: 25px 0 12px;
+            font-size: 1.15em;
+        }
+        p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        .highlight {
+            background: #e8f6f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #1abc9c;
+        }
+        .warning {
+            background: #fdf2f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+        .warning h3 {
+            color: #c0392b;
+        }
+        .timeline {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            margin-right: 15px;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        .price-tag {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 25px 0;
+        }
+        .price-tag .amount {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .cta h2 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.2s;
+        }
+        .nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+        .nav .prev::before {
+            content: "← ";
+        }
+        .nav .next::after {
+            content: " →";
+        }
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .joke {
+            font-style: italic;
+            color: #666;
+            border-left: 3px solid #95a5a6;
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+        @media (max-width: 600px) {
+            .header {
+                padding: 40px 20px;
+            }
+            .header h1 {
+                font-size: 1.6em;
+            }
+            .content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Самый честный способ закрыть ООО — через другую компанию</h1>
+            <div class="subtitle">Реорганизация в форме присоединения: когда сложное становится простым</div>
+        </div>
+
+        <div class="content">
+            <div class="entry">
+                <h2>🎯 Вход: когда это про тебя</h2>
+                <p>Три ООО в группе. Два из них — пустые коробки с нулями в балансе, но с долгами по налогам и страховкам. Третье работает и приносит деньги.</p>
+                <p>Или: ты купил компанию, а в придачу получил ещё две «в подарок». Отличный подарок, да? Особенно когда приходят письма из налоговой.</p>
+            </div>
+
+            <h2>Что такое присоединение на самом деле</h2>
+            <p>Суть простая: компания, которую нужно закрыть (присоединяемая), передаёт все свои активы и долги другой компании (главной). Первая прекращает существование, вторая продолжает работать с увеличенным уставным капиталом.</p>
+            
+            <p>Звучит как магия: проблемная компания исчезает, долги погашаются, никакой ликвидации. Но давай без иллюзий.</p>
+
+            <h3>📋 Процесс по-честному</h3>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <strong>1. Решение обеих компаний</strong><br>
+                        Общие собрания учредителей принимают решение о реорганизации. Нужно соблюсти кворум, оформить протоколы.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <strong>2. Передаточный акт</strong><br>
+                        Детальный документ: что именно переходит от одной компании к другой. Активы, обязательства, договоры, сотрудники.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <strong>3. Публикация в ФНС</strong><br>
+                        Сообщаем о реорганизации. Налоговая размещает информацию в ЕГРЮЛ и даёт 3 месяца на заявление кредиторами.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <strong>4. Погашение долгов или обеспечение</strong><br>
+                        Все долги присоединяемой компании переходят к главной. Это не значит, что они исчезают — они просто меняют адресата.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <strong>5. Регистрация изменений</strong><br>
+                        Вносим в ЕГРЮЛ запись о прекращении одной компании и увеличении УК другой.
+                    </div>
+                </div>
+            </div>
+
+            <div class="joke">
+                Красота в том, что процесс законный, прозрачный и не требует ликвидационной комиссии. Гадость в том, что если долги большие — главная компания их унаследует.
+            </div>
+
+            <h2>Подводные камни, о которых не говорят</h2>
+            
+            <div class="warning">
+                <h3>⚠️ Жёсткая правда</h3>
+                <p><strong>Долги не сгорают.</strong> Они переходят к главной компании. Если присоединяемая ООО должна бюджету 2 миллиона — после присоединения эти 2 миллиона станут долгом главной компании. Никакого волшебства.</p>
+                
+                <p><strong>Налоговая проверит всё.</strong> Присоединение — это повод для внеплановой проверки. Если в присоединяемой компании были «серые» схемы — рискуешь обеими.</p>
+                
+                <p><strong>Сроки растягиваются.</strong> Три месяца на кредиторов — это минимум. На практике процесс занимает 4-6 месяцев.</p>
+            </div>
+
+            <h3>Когда присоединение — плохая идея</h3>
+            <ul>
+                <li>В присоединяемой компании большие налоговые долги</li>
+                <li>Есть признаки преднамеренного банкротства</li>
+                <li>Компания участвовала в сомнительных схемах</li>
+                <li>У главной компании сложная структура собственности</li>
+            </ul>
+
+            <h3>Когда присоединение — отличный выбор</h3>
+            <ul>
+                <li>Группа компаний, нужно оптимизировать структуру</li>
+                <li>«Пустые» ООО без активов и с минимальными долгами</li>
+                <li>Слияние бизнеса после покупки</li>
+                <li>Нужно сохранить историю и репутацию присоединяемой компании</li>
+            </ul>
+
+            <div class="highlight">
+                <h3>💡 Инсайт</h3>
+                <p>Присоединение — это не способ избавиться от долгов. Это способ упорядочить структуру, когда долги контролируемы и погашаемы.</p>
+                <p>Если цель — просто сбросить проблемную компанию — присоединение усугубит ситуацию. Проблемы перейдут к здоровой компании.</p>
+            </div>
+
+            <h2>Сколько это стоит и сколько длится</h2>
+            
+            <div class="price-tag">
+                <div class="amount">150 000 — 400 000 ₽</div>
+                <div>за полное сопровождение присоединения</div>
+            </div>
+
+            <h3>В эту цену входит:</h3>
+            <ul>
+                <li>Подготовка решений собраний учредителей</li>
+                <li>Составление передаточного акта</li>
+                <li>Взаимодействие с ФНС и публикации</li>
+                <li>Работа с кредиторами в течение 3 месяцев</li>
+                <li>Регистрация изменений в ЕГРЮЛ</li>
+                <li>Консультации на всех этапах</li>
+            </ul>
+
+            <h3>Сроки реалистичные:</h3>
+            <ul>
+                <li>Подготовка документов: 1-2 недели</li>
+                <li>Публикация и ожидание кредиторов: 3 месяца (обязательно)</li>
+                <li>Регистрация изменений: 1-2 недели</li>
+                <li><strong>Итого: 4-5 месяцев минимум</strong></li>
+            </ul>
+
+            <div class="warning">
+                <h3>🚨 Честное предупреждение</h3>
+                <p>Если тебе предлагают «быстрое присоединение за месяц» — беги. Либо врут про сроки, либо делают через заднюю дверь, что потом аукнется.</p>
+                <p>Три месяца на кредиторов — это закон. Не договориться, не ускорить, не обойти.</p>
+            </div>
+
+            <h2>Сравнение с другими способами</h2>
+            <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background: #f8f9fa;">
+                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Параметр</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid #ddd;">Присоединение</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid #ddd;">Ликвидация</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid #ddd;">Банкротство</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Сроки</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">4-5 месяцев</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">6-12 месяцев</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">6-18 месяцев</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Что с долгами</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Переходят к главной компании</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Погашаются из активов</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Списываются</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Сложность</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Средняя</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Высокая</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Высокая</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Когда применять</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Группа компаний</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Одна компания</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">Много долгов</td>
+                </tr>
+            </table>
+
+            <h2>Честный вывод</h2>
+            <p>Присоединение — это инструмент для тех, кто понимает, что делает. Если у тебя группа компаний и нужно убрать лишние юрлица — отличный способ. Активы сохраняются, история не теряется, процесс прозрачный.</p>
+            
+            <p>Но если ты думаешь, что так можно «спрятать» долги — ты ошибаешься. Они переедут к твоей рабочей компании. И налоговая обязательно проверит, что ты там прячешь.</p>
+
+            <div class="joke">
+                Присоединение — это как переселить тещу к себе домой. Проблемы не исчезнут, они просто будут рядом. И теперь твои.
+            </div>
+
+            <div class="cta">
+                <h2>Сложная структура из нескольких ООО?</h2>
+                <p>Разберём, какие компании можно присоединить, какие лучше ликвидировать, а какие — оставить в покое. Без воды и обещаний «сделаем за неделю».</p>
+                <a href="https://regfile.ru/konsultaciya" class="cta-button">Закрыть ООО без головной боли</a>
+            </div>
+
+            <div class="nav">
+                <a href="sposob-5-isklyuchenie.html" class="prev">Способ 5: Судебный порядок</a>
+                <a href="sposob-7-regfile.html" class="next">Способ 7: Продажа активов</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

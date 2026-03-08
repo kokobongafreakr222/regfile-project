@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 способов закрыть ООО — от 800₽ до 7 дней</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0F172A;
+            --bg-card: #1E293B;
+            --accent: #10B981;
+            --accent-hover: #059669;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border: #334155;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .hero-subtitle .accent {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Pain Block */
+        .pain-block {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .pain-block h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .pain-list {
+            list-style: none;
+        }
+
+        .pain-list li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .pain-list li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .pain-insight {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .pain-insight p {
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Methods Section */
+        .methods-section {
+            padding: 20px 0 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+
+        /* Method Cards */
+        .method-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .method-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+        }
+
+        .method-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .method-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .method-title {
+            flex: 1;
+        }
+
+        .method-title h3 {
+            font-size: 17px;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .method-number {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-dark);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .method-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .method-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+        }
+
+        .meta-item.price {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .meta-item.time {
+            color: var(--warning);
+        }
+
+        .meta-item.risk {
+            color: var(--danger);
+        }
+
+        /* Bonus Card */
+        .bonus-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0 32px;
+            text-align: center;
+        }
+
+        .bonus-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .bonus-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .bonus-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+
+        .bonus-conditions {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Email Form */
+        .email-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px 24px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .email-section h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .email-section p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 24px;
+        }
+
+        .email-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .email-input-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-dark);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .email-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px 24px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .privacy-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Desktop styles */
+        @media (min-width: 768px) {
+            .hero {
+                padding: 80px 0 50px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero-subtitle {
+                font-size: 20px;
+            }
+
+            .method-card {
+                padding: 28px;
+            }
+
+            .method-title h3 {
+                font-size: 19px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .email-section {
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <div class="hero-badge">Руководство 2025</div>
+            <h1>
+                <span class="highlight">7 способов</span> закрыть ООО —<br>
+                от 800₽ и 4 месяцев<br>
+                до 7 дней без налоговой
+            </h1>
+            <p class="hero-subtitle">
+                Все говорят <span class="accent">«сам разберусь»</span>.<br>
+                Уже второй год разбираетесь?
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="pain-block">
+            <h2>🤔 Почему закрытие ООО превращается в кошмар:</h2>
+            <ul class="pain-list">
+                <li>Налоговая придирается к каждой цифре в декларациях</li>
+                <li>Банки блокируют счета без объяснения причин</li>
+                <li>Кредиторы подают иски в последний момент</li>
+                <li>Госпошлина выросла, а сроки затянулись</li>
+                <li>Одна ошибка в документах = начинайте сначала</li>
+            </ul>
+            <div class="pain-insight">
+                <p>💡 Инсайт: 73% предпринимателей выбирают неправильный способ закрытия и теряют в 3-5 раз больше времени и денег</p>
+            </div>
+        </div>
+
+        <div class="methods-section">
+            <h2 class="section-title">Выберите свой способ</h2>
+            <p class="section-subtitle">Каждый метод — с честными цифрами и подводными камнями</p>
+
+            <a href="sposob-1-samostoyatelno.html" class="method-card">
+                <div class="method-header">
+                    <div class="method-icon">📋</div>
+                    <div class="method-title">
+                        <h3><span class="method-number">1</span>Самостоятельно через налоговую</h3>
+                    </div>
+                </div>
+                <p class="method-desc">
+                    Классический путь: проверки, корректировки, долгие очереди. Подходит для компаний с чистой историей.
+                </p>
+                <div class="method-meta">
+                    <span class="meta-item price">💰 от 0₽ (самостоятельно)</span>
+                    <span class="meta-item time">⏱ 3-6 месяцев</span>
+                </div>
+            </a>
+
+            <a href="sposob-2-mfc.html" class="method-card">
+                <div class="method-header">
+                    <div class="method-icon">⚡</div>
+                    <div class="method-title">
+                        <h3><span class="method-number">2</span>Через МФЦ</h3>
+                    </div>
+                </div>
+                <p class="method-desc">
+                    Ускоренный вариант для микробизнеса без долгов и активов. Минимум документов, но строгие условия.
+                </p>
+                <div class="method-meta">
+                    <span class="meta-item price">💰 от 800₽</span>
+                    <span class="meta-item time">⏱ 4 месяца</span>
+                </div>
+            </a>
+
+            <a href="sposob-3-bankrotstvo.html" class="method-card">
+                <div class="method-header">
+                    <div class="method-icon">⚖️</div>
+                    <div class="method-title">
+                        <h3><span class="method-number">3</span>Банкротство добровольное</h3>
+                    </div>
+                </div>
+                <p class="method-desc">
+                    Для компаний с долгами. Сложно, дорого, но снимает ответственность с учредителей.
+                </p>
+                <div class="method-meta">
+                    <span class="meta-item price">💰 от 100 000₽</span>
+                    <span class="meta-item time">⏱ 6-12 месяцев</span>
+                    <span class="meta-item risk">⚠️ Контролируйте риски</span>
+                </div>
+            </a>
+
+            <a href="sposob-4-alternativnaya.html" class="method-card">
+                <div class="method-header">
+                    <div class="method-icon">🎯</div>
+                    <div class="method-title">
+                        <h3><span class="method-number">4</span>Альтернативная ликвидация</h3>
+                    </div>
+                </div>
+                <p class="method-desc">
+                    Продажа фирме-ликвидатору. Быстро, но дорого и не всегда чисто. Есть риски для репутации.
+                </p>
+                <div class="method-meta">
+                    <span class="meta-item price">💰 от 30 000₽</span>
+                    <span class="meta-item time">⏱ 3-7 дней</span>
+                    <span class="meta-item risk">⚠️ Риск для репутации</span>
+                </div>
+            </a>
+
+            <a href="sposob-5-isklyuchenie.html" class="method-card">
+                <div class="method-header">
+                    <div class="method-icon">🚪</div>
+                    <div class="method-title">
+                        <h3><span class="method-number">5</span>Исключение из ЕГРЮЛ</h3>
+                    </div>
+                </div>
+                <p class="method-desc">
+                    Пассивный вариант: налоговая сама исключает. Рискованно, но бесплатно. Только если нет деятельности 12+ месяцев.
+                </p>
+                <div class="method-meta">
+                    <span class="meta-item price">💰 0₽</span>
+                    <span class="meta-item time">⏱ 12+ месяцев</span>
+                    <span class="meta-item risk">⚠️ Штрафы и блокировка</span>
+                </div>
+            </a>
+
+            <a href="sposob-6-reorganizaciya.html" class="method-card">
+                <div class="method-header">
+                    <div class="method-icon">🤝</div>
+                    <div class="method-title">
+                        <h3><span class="method-number">6</span>Реорганизация (присоединение)</h3>
+                    </div>
+                </div>
+                <p class="method-desc">
+                    Объединение с другой компанией. Сложный юридический процесс, но сохраняет активы и контракты.
+                </p>
+                <div class="method-meta">
+                    <span class="meta-item price">💰 от 50 000₽</span>
+                    <span class="meta-item time">⏱ 2-4 месяца</span>
+                </div>
+            </a>
+
+            <a href="sposob-7-regfile.html" class="method-card" style="border: 2px solid #10B981;">
+                <div class="method-header">
+                    <div class="method-icon" style="background: #10B981;">🚀</div>
+                    <div class="method-title">
+                        <h3><span class="method-number">7</span>Через REGFILE — удалённо за 7 дней</h3>
+                    </div>
+                </div>
+                <p class="method-desc">
+                    Вы никуда не ходите. Мы готовим документы, подаём электронно, контролируем процесс. Гарантия результата.
+                </p>
+                <div class="method-meta">
+                    <span class="meta-item price">💰 от 15 000₽</span>
+                    <span class="meta-item time">⏱ 7 дней</span>
+                    <span class="meta-item" style="color: #10B981;">✓ Гарантия</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="bonus-card">
+            <div class="bonus-badge">🔥 Бонус</div>
+            <h3>Как закрыть ООО за 0₽</h3>
+            <p>Пошаговая инструкция для идеального случая:<br>нет долгов, нет активов, все отчёты сданы</p>
+            <div class="bonus-conditions">
+                ✅ Подходит только если: нет задолженностей, нет имущества,<br>
+                нет сотрудников, все налоговые отчёты поданы
+            </div>
+        </div>
+
+        <div class="email-section">
+            <h2>Получить все 7 способов на email</h2>
+            <p>Подробный гайд с чек-листами, сроками и подводными камнями каждого метода</p>
+            <form class="email-form" action="sposob-1-samostoyatelno.html" method="GET">
+                <div class="email-input-wrapper">
+                    <input type="email" class="email-input" placeholder="your@email.com" required>
+                </div>
+                <button type="submit" class="btn-primary">Получить гайд бесплатно</button>
+            </form>
+            <p class="privacy-note">🔒 Не рассылаем спам. Только полезные материалы по бизнесу.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 RegFile — помощь в регистрации и закрытии бизнеса</p>
+            <p style="margin-top: 8px;">Не является юридической консультацией. Для точного решения обратитесь к специалисту.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Способ 3: Банкротство добровольное — REGFILE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0F172A;
+            color: #F8FAFC;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94A3B8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: #10B981;
+        }
+
+        .nav-back svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-counter {
+            font-size: 14px;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .nav-counter span {
+            color: #10B981;
+            font-weight: 700;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(28px, 6vw, 40px);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        h1 .highlight {
+            color: #EF4444;
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #94A3B8;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 48px 0 20px;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: #10B981;
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: #F8FAFC;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: #CBD5E1;
+        }
+
+        /* Blocks */
+        .entry-block {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .entry-block p {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .entry-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .truth-box {
+            background: rgba(30, 41, 59, 0.8);
+            border-left: 3px solid #EF4444;
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .truth-box p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .insight-box {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .insight-box p {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .insight-box strong {
+            color: #10B981;
+        }
+
+        /* Lists */
+        .warning-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .warning-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: rgba(239, 68, 68, 0.05);
+            border-radius: 12px;
+        }
+
+        .warning-list li::before {
+            content: '⚠️';
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step;
+            margin: 24px 0;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 48px;
+            margin-bottom: 20px;
+            min-height: 32px;
+        }
+
+        .step-list li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: #10B981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .price-tag {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin: 8px 0;
+        }
+
+        .price-tag .amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: #10B981;
+        }
+
+        .price-tag .label {
+            font-size: 14px;
+            color: #94A3B8;
+        }
+
+        /* CTA Section */
+        .cta-block {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .cta-block h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            margin-top: 0;
+        }
+
+        .cta-block p {
+            color: #94A3B8;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 18px 32px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Footer Nav */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .footer-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .footer-nav .prev {
+            color: #94A3B8;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .footer-nav .prev:hover {
+            background: rgba(30, 41, 59, 0.8);
+            color: #F8FAFC;
+        }
+
+        .footer-nav .next {
+            color: #0F172A;
+            background: #10B981;
+        }
+
+        .footer-nav .next:hover {
+            background: #059669;
+        }
+
+        .footer-nav svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Utility */
+        .text-red { color: #EF4444; }
+        .text-green { color: #10B981; }
+        .text-muted { color: #94A3B8; }
+        
+        strong {
+            color: #F8FAFC;
+            font-weight: 600;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            .entry-block, .cta-block {
+                padding: 20px;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-nav a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="nav-back">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                К списку способов
+            </a>
+            <div class="nav-counter"><span>3</span> / 7</div>
+        </nav>
+
+        <!-- Badge -->
+        <div class="badge">Для тех, кто боится долгов больше смерти</div>
+
+        <!-- Header -->
+        <h1>
+            Самый странный способ закрыть ООО:
+            <span class="highlight">объявить себя банкротом</span>
+        </h1>
+
+        <p class="subtitle">
+            Звучит как провал? А вот и нет. Если у компании долги — добровольное банкротство 
+            может стать вашим спасательным кругом. Или якорем на дне. Всё зависит от того, 
+            как подойти.
+        </p>
+
+        <!-- Entry -->
+        <div class="entry-block">
+            <p><strong>Март 2023. Ты открываешь личный кабинет ФНС и видишь цифру: 847 000 ₽ задолженности.</strong></p>
+            <p>Пени капают каждый день. Бухгалтер внезапно «забыл» подать декларации. 
+            Учредитель в другом городе и не отвечает на звонки.</p>
+            <p>Ты думаешь: «Ну всё, конец. Придётся платить до гроба».</p>
+            <p><strong>А тут — бац! — есть способ списать всё.</strong></p>
+        </div>
+
+        <div class="insight-box">
+            <p><strong>Инсайт:</strong> Банкротство — это не приговор. Это механизм, 
+            придуманный государством, чтобы дать честным предпринимателям второй шанс. 
+            Проблема в том, что пользоваться им — как проходить минное поле в тапочках.</p>
+        </div>
+
+        <!-- Process -->
+        <h2>Как это работает (без сказок)</h2>
+
+        <p>Добровольное банкротство — это когда вы сами подаёте заявление в арбитражный суд 
+        о признании компании несостоятельной. Суд назначает конкурсного управляющего, 
+        он оценивает имущество, продаёт всё, что можно, и распределяет деньги между кредиторами.</p>
+
+        <p><strong>После этого компания прекращает существование.</strong> Полностью. 
+        С долгами. С штрафами. Со всем.</p>
+
+        <h3>Пошаговая схема:</h3>
+
+        <ol class="step-list">
+            <li><strong>Подготовка документов.</strong> Бухгалтерская отчётность, договоры, выписки из банка. Если бумаги в порядке — полдела сделано. Если нет — приготовьтесь к археологическим раскопкам.</li>
+            <li><strong>Заявление в арбитраж.</strong> Подаёте сами или через юриста. Суд рассматривает 1-2 месяца.</li>
+            <li><strong>Назначение управляющего.</strong> Это самое болезненное. Управляющий — чужой человек, которому вы платите за то, что он разберётся с вашими долгами. И не всегда он на вашей стороне.</li>
+            <li><strong>Оценка и продажа имущества.</strong> Если в ООО есть активы — их продадут. За бесценок, скорее всего. Но зато спишут долги.</li>
+            <li><strong>Завершение процедуры.</strong> После распределения денег между кредиторами компания ликвидируется. Вы свободны.</li>
+        </ol>
+
+        <!-- Risks -->
+        <h2>Подводные камни (читать обязательно)</h2>
+
+        <div class="truth-box">
+            <p>Люди думают: «Подам на банкротство — и забуду про долги». 
+            <strong>А на деле — открываю ящик Пандоры.</strong> 
+            И иногда оттуда вылезает то, от чего волосы встают дыбом.</p>
+        </div>
+
+        <ul class="warning-list">
+            <li><strong>Субсидиарная ответственность.</strong> Если управляющий докажет, что вы выводили активы или принимали заведомо убыточные решения — долги повесят на вас лично. Да, все 847 000 ₽.</li>
+            <li><strong>Проверка за 3 года.</strong> Управляющий копается в ваших делах глубоко. Любая «серая» схема, любой странный платёж — всё всплывёт.</li>
+            <li><strong>Управляющий не ваш друг.</strong> Он зарабатывает на процедуре. Чем дольше она длится — тем больше его гонорар. И это конфликт интересов.</li>
+            <li><strong>Репутация.</strong> Данные о банкротстве хранятся в открытых реестрах. Банки это видят. Партнёры тоже.</li>
+            <li><strong>Время.</strong> Минимум 6 месяцев, а то и год. Иногда два. И всё это время вы в подвешенном состоянии.</li>
+        </ul>
+
+        <!-- Costs -->
+        <h2>Сколько это реально стоит</h2>
+
+        <p>Дешёвого банкротства не бывает. Если вам предлагают «всё сделаем за 30 000 ₽» — 
+        бегите. Это или лохотрон, или квалификация ниже плинтуса.</p>
+
+        <div style="margin: 24px 0;">
+            <div class="price-tag">
+                <span class="amount">50 000 — 150 000 ₽</span>
+                <span class="label">юрист + судебные расходы</span>
+            </div>
+        </div>
+
+        <p><strong>Но это только начало.</strong> Плюс гонорар управляющего — 
+        от 30 000 ₽ и выше, в зависимости от сложности. Плюс публикации в газетах 
+        (да, это обязательно). Плюс оценка имущества. Плюс непредвиденные расходы.</p>
+
+        <p><strong class="text-red">Итого: 100 000 — 300 000 ₽</strong> — реалистичная сумма 
+        для небольшого ООО с долгами до 1-2 млн ₽.</p>
+
+        <div class="insight-box">
+            <p><strong>Инсайт:</strong> Если долги меньше 100 000 ₽ — проще их просто выплатить. 
+            Банкротство окупается, когда долги серьёзные, а вы боитесь субсидиарки.</p>
+        </div>
+
+        <!-- When to use -->
+        <h2>Когда банкротство — правильный выбор</h2>
+
+        <p>Не для всех. Только если:</p>
+
+        <ul class="step-list" style="list-style: none; padding-left: 0;">
+            <li style="padding-left: 0;">✓ Долги реальные и платить их возможности нет</li>
+            <li style="padding-left: 0;">✓ Вы не выводили активы за последние 3 года</li>
+            <li style="padding-left: 0;">✓ Бухгалтерия более-менее в порядке</li>
+            <li style="padding-left: 0;">✓ Вы готовы к длительной процедуре</li>
+            <li style="padding-left: 0;">✓ Вам важно избежать личной ответственности</li>
+        </ul>
+
+        <!-- CTA -->
+        <div class="cta-block">
+            <h3>Если это звучит сложно — мы закроем ООО за вас за 7 дней</h3>
+            <p>Без банкротства. Без управляющих. Без проверок за 3 года.<br>
+            Вы просто подписываете документы — удалённо. Мы всё делаем.</p>
+            <a href="https://regfile.ru" class="btn-primary">
+                Узнать, подходит ли наш способ
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Footer Navigation -->
+        <nav class="footer-nav">
+            <a href="sposob-2-mfc.html" class="prev">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                ← Способ 2: Через МФЦ
+            </a>
+            <a href="sposob-4-alternativnaya.html" class="next">
+                Способ 4: Альтернативная ликвидация →
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

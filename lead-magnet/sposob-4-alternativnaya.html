@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Способ 4: Альтернативная ликвидация — REGFILE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0F172A;
+            color: #F8FAFC;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94A3B8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #10B981;
+        }
+
+        .nav-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-link.next {
+            flex-direction: row-reverse;
+        }
+
+        .method-number {
+            font-size: 12px;
+            font-weight: 700;
+            color: #10B981;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        /* Hero */
+        .hero {
+            margin-bottom: 48px;
+        }
+
+        h1 {
+            font-size: clamp(28px, 6vw, 42px);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        h1 span {
+            color: #10B981;
+        }
+
+        .hook {
+            font-size: 20px;
+            color: #CBD5E1;
+            font-style: italic;
+            border-left: 3px solid #10B981;
+            padding-left: 20px;
+            margin-bottom: 32px;
+        }
+
+        /* Content blocks */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: #10B981;
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #CBD5E1;
+            margin-bottom: 16px;
+        }
+
+        p strong {
+            color: #F8FAFC;
+            font-weight: 600;
+        }
+
+        /* Lists */
+        .feature-list {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #CBD5E1;
+        }
+
+        .feature-list li::before {
+            content: '→';
+            color: #10B981;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Warning block */
+        .warning-block {
+            background: linear-gradient(145deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .warning-block h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #EF4444;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-block h3::before {
+            content: '⚠️';
+        }
+
+        .warning-block p {
+            margin-bottom: 12px;
+        }
+
+        .warning-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Quote block */
+        .quote-block {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid #10B981;
+        }
+
+        .quote-block p {
+            font-size: 18px;
+            font-style: italic;
+            color: #F8FAFC;
+            margin-bottom: 12px;
+        }
+
+        .quote-block .author {
+            font-size: 14px;
+            color: #94A3B8;
+            font-style: normal;
+        }
+
+        /* Info block */
+        .info-block {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .info-block h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #10B981;
+            margin-bottom: 16px;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 12px;
+        }
+
+        .timeline-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-content p {
+            font-size: 14px;
+            color: #94A3B8;
+            margin-bottom: 0;
+        }
+
+        /* Price tags */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .price-item {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .price-item .label {
+            font-size: 13px;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .price-item .value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #10B981;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            color: #94A3B8;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 18px 32px;
+            font-size: 16px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Footer nav */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .footer-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94A3B8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 20px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .footer-nav a:hover {
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .footer-nav a.next {
+            flex-direction: row-reverse;
+        }
+
+        .footer-nav a.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-nav a {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="sposob-3-bankrotstvo.html" class="nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                ← Способ 3: Выход участника
+            </a>
+            <a href="index.html" class="nav-link" style="color: #64748B;">Все способы</a>
+            <a href="sposob-5-isklyuchenie.html" class="nav-link next">
+                Способ 5: Реорганизация →
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+        </nav>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="method-number">Способ 4 из 6</div>
+            <h1>Альтернативная ликвидация: <span>когда продаёшь фирму незнакомцам</span></h1>
+            <p class="hook">
+                Самый быстрый способ закрыть ООО — это продать его тому, кто «занимается ликвидацией». Звучит как сделка века: никаких налогов, никаких проверок, всего 3–5 дней. Но вот парадокс: чем проще выглядит решение, тем больше у тебя шансов стать соучастником чужого мошенничества.
+            </p>
+        </div>
+
+        <!-- Entry -->
+        <section class="section">
+            <h2 class="section-title">Почему люди выбирают этот путь</h2>
+            <p>
+                Представь: 15 февраля. Ты сидишь в такси, едешь на встречу с банкиром, и тут звонок от бухгалтера. «Налоговая прислала требование на 2,3 миллиона, срок — 10 дней». Ты понимаешь, что компанию надо закрывать вчера. Вчера.
+            </p>
+            <p>
+                И тут в Телеграме находится «Александр, помогаю закрывать ООО без проблем». Говорит: «Зачем тебе банкротство с его сроками? Продай мне фирму, я сам разберусь. 5 дней — и ты свободен».
+            </p>
+            <p>
+                <strong>Вот почему 90% выбирают альтернативную ликвидацию:</strong> она обещает магию — избавление от проблем без боли, без ожидания, без взаимодействия с государством.
+            </p>
+            <p>
+                И в этот момент ты не думаешь о рисках. Ты думаешь: «Наконец-то».
+            </p>
+        </section>
+
+        <!-- Process -->
+        <section class="section">
+            <h2 class="section-title">Как это работает на самом деле</h2>
+            <p>
+                Давай честно, без сказок. «Альтернативная ликвидация» — это не юридический термин. Это эвфемизм для сделки, где ты продаёшь свою компанию фирме-ликвидатору, а она делает с ней что хочет.
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <h4>Подписание договора купли-продажи доли</h4>
+                        <p>Ты формально передаёшь компанию новому «учредителю». На бумаге — всё чисто.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <h4>Смена руководителя</h4>
+                        <p>Тебя снимают с должности директора, назначают подставное лицо (часто — бездомного или пенсионера за 5000₽).</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <h4>Исключение из ЕГРЮЛ (иногда)</h4>
+                        <p>Некоторые ликвидаторы реально закрывают компанию через налоговую. Другие — нет. Угадаешь, к кому попадёшь?</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">
+                        <h4>Использование фирмы в чёрных схемах</h4>
+                        <p>И вот тут начинается интересное. Твоя бывшая компания может торговать фантомными товарами, выводить VAT, брать кредиты.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-block">
+                <p>«Мне сказали, что фирма будет закрыта официально. А через полгода пришла повестка в полицию — на моё имя оформили 12 микрозаймов»</p>
+                <div class="author">— Реальная история предпринимателя из Казани</div>
+            </div>
+        </section>
+
+        <!-- Risks -->
+        <section class="section">
+            <h2 class="section-title">Подводные камни: что не расскажет «Александр»</h2>
+            
+            <p>
+                Вот тут я должен быть максимально честен. Потому что в этой сфере работают и ребята, которые действительно закрывают компании честно, и те, кто превращает чужие фирмы в орудия преступления.
+            </p>
+
+            <div class="warning-block">
+                <h3>Главная опасность: субсидиарная ответственность</h3>
+                <p>
+                    Продажа компании не освобождает от ответственности. Если новый «владелец» наворотит дел, налоговая и кредиторы могут прийти к <strong>тебе</strong> как к бывшему учредителю. И суды всё чаще встают на сторону кредиторов.
+                </p>
+                <p>
+                    Представь: через 2 года тебе предъявляют долг в 15 миллионов за сделки, которые совершил «новый директор» после продажи.
+                </p>
+            </div>
+
+            <ul class="feature-list">
+                <li>
+                    <strong>Подставные директора</strong> — человек, который «встанет во главе» твоей компании, часто не в курсе, что подписывает. Это может быть пенсионер из поселка, которому пообещали 3000₽.
+                </li>
+                <li>
+                    <strong>Налоговые риски</strong> — твоя фирма может стать «проблемной» для налоговой ещё до продажи. Новый владелец накапает долгов — и следы ведут к тебе.
+                </li>
+                <li>
+                    <strong>Уголовное преследование</strong> — если через твою бывшую компанию пойдут махинации, следователи придут к тебе первому. Объясняй потом, что «я же продал».
+                </li>
+                <li>
+                    <strong>Невозможность контролировать процесс</strong> — ты не знаешь, что происходит с компанией после продажи. Тебе сказали «всё закрыто» — а она активно торгует.
+                </li>
+            </ul>
+
+            <div class="info-block">
+                <h3>«Грязные» схемы, которые используют мошенники</h3>
+                <p style="margin-bottom: 12px;">
+                    <strong>Схема «фантомный импорт»</strong> — твоя фирма становится получателем несуществующих товаров из-за рубежа, возмещает VAT, а потом «исчезает».
+                </p>
+                <p style="margin-bottom: 12px;">
+                    <strong>Схема «кредитная помойка»</strong> — на имя подставного директора берут десятки микрозаймов, которые никто не собирается возвращать.
+                </p>
+                <p>
+                    <strong>Схема «транзитный налогоплательщик»</strong> — компания проводит фиктивные операции по купле-продаже с НДС, помогая другим уходить от налогов.
+                </p>
+            </div>
+
+            <p>
+                Звучит как криминальный триллер? К сожалению, это рутинная практика на рынке альтернативной ликвидации.
+            </p>
+        </section>
+
+        <!-- Costs -->
+        <section class="section">
+            <h2 class="section-title">Сколько времени и денег реально нужно</h2>
+            
+            <div class="price-grid">
+                <div class="price-item">
+                    <div class="label">Стоимость услуг</div>
+                    <div class="value">30–100 тыс ₽</div>
+                </div>
+                <div class="price-item">
+                    <div class="label">Срок</div>
+                    <div class="value">3–7 дней</div>
+                </div>
+            </div>
+
+            <p>
+                Дешевле, чем банкротство. Быстрее, чем официальная ликвидация. Но вот что важно понимать:
+            </p>
+            <p>
+                <strong>Дополнительные расходы</strong>, о которых не говорят заранее: госпошлины, нотариальные услуги, «доплата за срочность», «непредвиденные сложности». Итоговая сумма может вырасти вдвое.
+            </p>
+            <p>
+                <strong>Скрытые риски</strong> — цена ошибки здесь не измеряется деньгами. Это возможный уголовный срок, многомиллионные долги, разрушенная репутация.
+            </p>
+        </section>
+
+        <!-- When it makes sense -->
+        <section class="section">
+            <h2 class="section-title">Когда это ещё имеет смысл</h2>
+            <p>
+                Я не хочу сказать, что все ликвидаторы — мошенники. Есть честные ребята, которые действительно помогают закрыть компанию без лишней головной боли. Но найти их — как выиграть в лотерею.
+            </p>
+            <p>
+                <strong>Альтернативная ликвидация может работать, если:</strong>
+            </p>
+            <ul class="feature-list">
+                <li>Компания чистая — нет долгов, нет претензий налоговой</li>
+                <li>У тебя есть проверенный контрагент (не «нашёл в интернете»)</li>
+                <li>Ты готов контролировать процесс до конца</li>
+                <li>Тебе действительно нужна скорость любой ценой</li>
+            </ul>
+            <p>
+                Но даже в этих случаях я бы подумал трижды.
+            </p>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Если боитесь рисков — мы закроем ООО за вас честно</h2>
+            <p>
+                Мы не продаём компании незнакомцам и не используем подставных лиц. Работаем через официальные процедуры: банкротство, добровольная ликвидация, реорганизация. С полным пакетом документов и юридической защитой.
+            </p>
+            <a href="https://t.me/regfile_consult" class="btn-primary" target="_blank">
+                Получить консультацию в Telegram
+            </a>
+        </section>
+
+        <!-- Navigation Footer -->
+        <nav class="footer-nav">
+            <a href="sposob-3-bankrotstvo.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                ← Способ 3: Выход участника
+            </a>
+            <a href="sposob-5-isklyuchenie.html" class="next">
+                Способ 5: Реорганизация →
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

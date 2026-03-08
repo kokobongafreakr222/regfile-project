@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Способ 1: Самостоятельно через налоговую — Regfile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e8e8e8;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .method-badge {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.15);
+            color: #ff6b6b;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #a0a0b0;
+            max-width: 540px;
+            margin: 0 auto;
+        }
+        
+        .content-block {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 200, 87, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            color: #c8c8d8;
+        }
+        
+        p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight {
+            background: rgba(255, 200, 87, 0.1);
+            border-left: 3px solid #ffc857;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight p {
+            color: #fff;
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .steps {
+            counter-reset: step;
+            list-style: none;
+        }
+        
+        .steps li {
+            position: relative;
+            padding-left: 48px;
+            margin-bottom: 20px;
+            min-height: 36px;
+        }
+        
+        .steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .warning {
+            background: rgba(255, 107, 107, 0.08);
+            border: 1px solid rgba(255, 107, 107, 0.25);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+        
+        .warning-title {
+            color: #ff6b6b;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .warning ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .warning li {
+            color: #d8a0a0;
+            margin-bottom: 8px;
+        }
+        
+        .warning li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .reality-check {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 200, 87, 0.05) 100%);
+            border-radius: 16px;
+            padding: 28px;
+            margin: 28px 0;
+        }
+        
+        .reality-check h3 {
+            color: #ffc857;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+        
+        .price-tag {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .price-tag:last-child {
+            border-bottom: none;
+        }
+        
+        .price-label {
+            color: #a0a0b0;
+        }
+        
+        .price-value {
+            color: #fff;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .price-value.free {
+            color: #4ecdc4;
+        }
+        
+        .cta-block {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-block h3 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .cta-block p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 24px;
+            font-size: 17px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #ff6b6b;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #a0a0b0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link.next {
+            flex-direction: row-reverse;
+            color: #4ecdc4;
+        }
+        
+        .nav-link.next:hover {
+            background: rgba(78, 205, 196, 0.1);
+        }
+        
+        .nav-arrow {
+            font-size: 18px;
+        }
+        
+        .truth-bomb {
+            font-size: 20px;
+            color: #fff;
+            font-style: italic;
+            text-align: center;
+            padding: 30px;
+            border-top: 2px solid rgba(255, 200, 87, 0.3);
+            border-bottom: 2px solid rgba(255, 200, 87, 0.3);
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .content-block {
+                padding: 24px;
+            }
+            
+            .cta-block {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="method-badge">Способ 1 из 3</div>
+            <h1>Самый дешёвый способ закрыть ООО — это сделать всё самому. И самый дорогой тоже.</h1>
+            <p class="subtitle">Честный гид по добровольной ликвидации через налоговую. Без розовых очков.</p>
+        </header>
+
+        <section class="content-block">
+            <h2><span class="icon">🎯</span>Вход: почему ты здесь</h2>
+            <p>Ты сидишь вечером, открываешь очередное письмо от налоговой и думаешь: «За какие грехи я вообще открыл это ООО?»</p>
+            <p>Бизнес не пошёл. Или пошёл, но пора сворачиваться. И тут вспоминаешь — ага, есть же «дешёвый» способ. Самому. Бесплатно. За 800 рублей госпошлины и всё.</p>
+            <div class="highlight">
+                <p>Звучит как план. Пока ты не вникаешь в детали.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2><span class="icon">📋</span>Как это работает (по-честному)</h2>
+            <p>Добровольная ликвидация — это когда ты сам решаешь закрыть фирму, без банкротства и скандалов. Алгоритм выглядит просто:</p>
+            
+            <ol class="steps">
+                <li><strong>Собрание учредителей.</strong> Решение о ликвидации. Формальность, но без неё — никуда.</li>
+                <li><strong>Назначаешь ликвидатора.</strong> Обычно — сам себе. Поздравляю, теперь ты отвечаешь за всё.</li>
+                <li><strong>Уведомляешь налоговую.</strong> Подаёшь заявление по форме Р15001. Запускаешь двухмесячный срок для кредиторов.</li>
+                <li><strong>Публикация в Вестнике.</strong> Объявляешь о ликвидации. Ждёшь, пока никто не заявит права на твои долги.</li>
+                <li><strong>Нулевой баланс.</strong> Готовишь промежуточный ликвидационный баланс. Если нет долгов — почти готово.</li>
+                <li><strong>Финальная отчётность.</strong> Сдаёшь декларации, закрываешь расчётный счёт, получаешь документы.</li>
+            </ol>
+
+            <div class="truth-bomb">
+                «Просто подать бумажки» — это как «просто собрать IKEA без инструкции». Теоретически возможно. На практике — три визита в магазин и сломанная деталь.
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2><span class="icon">⚠️</span>Подводные камни (жёсткая правда)</h2>
+            
+            <div class="warning">
+                <div class="warning-title">🚫 Что реально пойдёт не так</div>
+                <ul>
+                    <li><strong>Налоговая «зависнет».</strong> Двухмесячный срок — теория. На деле проверки затягиваются на полгода.</li>
+                    <li><strong>Всплывут долги.</strong> Которые ты забыл. Или партнёр «забыл» сказать. Или банк начислил комиссию за «нулевой» счёт.</li>
+                    <li><strong>Ошибка в бухгалтерии.</strong> Одна цифра — и отказ. Переподавай, жди снова.</li>
+                    <li><strong>Нужен бухгалтер.</strong> Даже с «нулевкой». Иначе как ты узнаешь, что всё правильно?</li>
+                    <li><strong>Штрафы за просрочку.</strong> Если что-то пошло не так — платишь за каждый день промедления.</li>
+                </ul>
+            </div>
+
+            <p>Я не пугаю. Я говорю, как есть. Самостоятельная ликвидация — это не подача документов. Это управление рисками на протяжении 4–8 месяцев.</p>
+            
+            <div class="highlight">
+                <p>И если ты ошибёшься — никто не вернёт тебе время. А время, между прочим, дороже денег.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2><span class="icon">💰</span>Сколько реально стоит</h2>
+            
+            <div class="reality-check">
+                <h3>Честный калькулятор</h3>
+                
+                <div class="price-tag">
+                    <span class="price-label">Госпошлина</span>
+                    <span class="price-value free">800 ₽</span>
+                </div>
+                <div class="price-tag">
+                    <span class="price-label">Публикация в Вестнике</span>
+                    <span class="price-value">3 000 – 5 000 ₽</span>
+                </div>
+                <div class="price-tag">
+                    <span class="price-label">Услуги бухгалтера (если не умеешь сам)</span>
+                    <span class="price-value">15 000 – 30 000 ₽</span>
+                </div>
+                <div class="price-tag">
+                    <span class="price-label">Твои нервы и время (2–6 месяцев)</span>
+                    <span class="price-value">Бесценно</span>
+                </div>
+                <div class="price-tag" style="border-top: 2px solid rgba(255,200,87,0.3); margin-top: 12px; padding-top: 20px;">
+                    <span class="price-label" style="color: #fff; font-weight: 600;">Итого реально</span>
+                    <span class="price-value" style="color: #ffc857; font-size: 22px;">20 000 – 80 000 ₽</span>
+                </div>
+            </div>
+
+            <p>«Бесплатно» получается только если у тебя есть бухгалтер в штате, нулевая отчётность и чистая история. У большинства — нет.</p>
+        </section>
+
+        <section class="content-block">
+            <h2><span class="icon">⏱️</span>Сколько реально времени</h2>
+            <p>Минимум — 4 месяца. Это если повезло: налоговая быстро проверила, кредиторы не объявились, документы сразу приняли.</p>
+            <p>В реальности — 6–12 месяцев. Иногда дольше.</p>
+            <p>Представь: ты подаёшь документы, ждёшь два месяца, потом тебе пишут: «Нужна справка». Ты бегаешь, получаешь, переподаёшь. И снова ждёшь.</p>
+            <div class="highlight">
+                <p>Пока ты это читаешь — кто-то уже третий месяц ждёт ответа из налоговой.</p>
+            </div>
+        </section>
+
+        <div class="cta-block">
+            <h3>Если это звучит сложно — мы закроем ООО за вас за 7 дней</h3>
+            <p>Без твоего участия. Без беготни по инстанциям. Без риска получить отказ.</p>
+            <a href="https://regfile.ru" class="cta-button">Узнать стоимость на Regfile.ru →</a>
+        </div>
+
+        <nav class="navigation">
+            <a href="#" class="nav-link disabled" style="opacity: 0.4; pointer-events: none;">
+                <span class="nav-arrow">←</span>
+                <span>Назад</span>
+            </a>
+            <a href="sposob-2-mfc.html" class="nav-link next">
+                <span>Способ 2: Альтернативная</span>
+                <span class="nav-arrow">→</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

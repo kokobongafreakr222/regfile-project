@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Способ 7: Через REGFILE — удалённо за 7 дней</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0F172A;
+            color: #F8FAFC;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(148,163,184,0.2);
+        }
+        .nav a {
+            color: #10B981;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .nav a:hover { text-decoration: underline; }
+        .badge {
+            display: inline-block;
+            background: rgba(16,185,129,0.1);
+            color: #10B981;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #F8FAFC;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #94A3B8;
+            margin-bottom: 32px;
+        }
+        .lead {
+            font-size: 20px;
+            font-weight: 500;
+            color: #F8FAFC;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #CBD5E1;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #F8FAFC;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(16,185,129,0.3);
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #10B981;
+            margin: 28px 0 14px 0;
+        }
+        .insight-box {
+            background: rgba(16,185,129,0.1);
+            border-left: 4px solid #10B981;
+            padding: 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .truth-box {
+            background: rgba(239,68,68,0.1);
+            border-left: 4px solid #EF4444;
+            padding: 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .highlight-box {
+            background: rgba(59,130,246,0.1);
+            border-left: 4px solid #3B82F6;
+            padding: 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(16,185,129,0.05) 100%);
+            border: 2px solid #10B981;
+            padding: 32px;
+            margin: 40px 0;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .cta-box h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            background: #10B981;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+        }
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0;
+        }
+        .features li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            color: #CBD5E1;
+            border-bottom: 1px solid rgba(148,163,184,0.1);
+        }
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: 700;
+        }
+        .price-tag {
+            display: inline-block;
+            background: #10B981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            margin: 16px 0;
+        }
+        strong { color: #F8FAFC; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="sposob-6-reorganizaciya.html">← Способ 6: Реорганизация</a>
+            <a href="index.html">Все способы ↑</a>
+        </div>
+
+        <div class="badge">САМЫЙ БЫСТРЫЙ СПОСОБ</div>
+        
+        <h1>Чем меньше вы в это вовлечены — тем быстрее закроете ООО</h1>
+        <p class="subtitle">Закрытие компании без очередей, нервов и личного присутствия</p>
+
+        <p class="lead">
+            Представьте: субботнее утро. Вы пьёте кофе в любимой кружке. В телефоне — сообщение: «Ваше ООО ликвидировано, документы в личном кабинете». Вы ни разу не были в налоговой.
+        </p>
+
+        <div class="insight-box">
+            <p><strong>Инсайт:</strong> Все 6 предыдущих способов требуют одного — вашего времени и нервов. Вы либо бегаете по инстанциям, либо разбираетесь в документах, либо рискуете с подставными ликвидаторами. А что, если можно вообще не участвовать в этом процессе?</p>
+        </div>
+
+        <h2>Как это работает</h2>
+        
+        <h3>Шаг 1: Вы оставляете заявку</h3>
+        <p>Заполняете короткую форму или пишете в Telegram. Мы задаём 3-4 уточняющих вопроса — есть ли долги, сколько учредителей, в каком городе.</p>
+
+        <h3>Шаг 2: Мы всё проверяем</h3>
+        <p>Анализируем вашу ситуацию: задолженности перед бюджетом, кредиторов, сложность ликвидации. Даём честный прогноз — получится ли закрыть быстро или есть нюансы.</p>
+
+        <h3>Шаг 3: Подписываем документы</h3>
+        <p>Электронная подпись через Госуслуги или курьер с бумагами. Вы не едете к нам — мы присылаем всё к вам.</p>
+
+        <h3>Шаг 4: Мы закрываем, вы живёте</h3>
+        <p>Готовим документы, подаём в ФНС, контролируем процесс. Через 7 дней — готовое решение о ликвидации.</p>
+
+        <div class="truth-box">
+            <p><strong>Жёсткая правда:</strong></p>
+            <p>Вы не контролируете бюрократический процесс и сами. В налоговой вас всё равно не слушают. В МФЦ вам всё равно говорят «придите завтра». Ваше «личное присутствие» — это иллюзия контроля, за которую вы платите нервами и временем.</p>
+            <p style="margin-top: 12px;">Мы даём реальный контроль — через гарантии и результат.</p>
+        </div>
+
+        <h2>Что входит в стоимость</h2>
+        <ul class="features">
+            <li>Проверка задолженностей перед всеми ведомствами</li>
+            <li>Подготовка полного пакета документов</li>
+            <li>Подача в ФНС и контроль рассмотрения</li>
+            <li>Взаимодействие с кредиторами (если есть долги)</li>
+            <li>Получение решения о ликвидации</li>
+            <li>Личный менеджер на связи 7 дней в неделю</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>Гарантия:</strong> Если не получилось закрыть — возвращаем деньги. Без «но», без «если», без бюрократии. За последний год закрыли 340+ ООО, 97% — в срок.</p>
+        </div>
+
+        <div class="cta-box">
+            <h3>Устали от этой возни?</h3>
+            <p style="font-size: 18px; margin-bottom: 20px;">Закажите бесплатную консультацию. Расскажем, подходит ли ваш случай для быстрого закрытия.</p>
+            <a href="https://t.me/regfile_bot" class="btn">Получить консультацию бесплатно</a>
+            <p style="font-size: 13px; color: #94A3B8; margin-top: 16px;">Никакого спама. Ответим в течение 2 часов.</p>
+        </div>
+
+        <div class="price-tag">От 15 000 ₽ / 7 дней</div>
+        <p style="color: #94A3B8; font-size: 14px;">Точная стоимость зависит от наличия долгов и сложности случая</p>
+    </div>
+</body>
+</html>

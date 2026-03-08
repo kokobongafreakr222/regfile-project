@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-primary-50 text-primary-900 antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-success text-white px-8 py-4 rounded-lg font-semibold 
+           transition-all duration-200 hover:bg-success-dark 
+           hover:shadow-lg active:scale-95 inline-flex items-center justify-center gap-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-primary-900 text-primary-900 
+           px-8 py-4 rounded-lg font-semibold transition-all duration-200 
+           hover:bg-primary-900 hover:text-white inline-flex items-center justify-center gap-2;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent text-info font-medium px-6 py-3 
+           rounded-lg transition-all duration-200 hover:bg-info-light 
+           inline-flex items-center gap-2;
+  }
+  
+  .section-padding {
+    @apply py-20 lg:py-28;
+  }
+  
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8 xl:px-12;
+  }
+  
+  .card {
+    @apply bg-white border border-primary-200 rounded-2xl p-8 
+           shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+  }
+  
+  .card-featured {
+    @apply bg-primary text-white rounded-2xl p-10 shadow-featured;
+  }
+  
+  .input {
+    @apply w-full border border-primary-200 rounded-lg px-4 py-3 
+           text-primary-900 placeholder-primary-400
+           focus:outline-none focus:border-info focus:ring-2 focus:ring-info-light 
+           transition-all duration-200;
+  }
+  
+  .label {
+    @apply block text-small font-medium text-primary-600 mb-2;
+  }
+  
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-caption font-medium;
+  }
+  
+  .badge-success {
+    @apply badge bg-success-light text-success-dark;
+  }
+  
+  .badge-primary {
+    @apply badge bg-primary-100 text-primary-900;
+  }
+  
+  .stat-number {
+    @apply text-4xl lg:text-5xl font-bold text-success;
+  }
+  
+  .stat-label {
+    @apply text-small text-primary-400 mt-1;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-success to-info;
+  }
+  
+  .gradient-hero {
+    @apply bg-gradient-to-br from-primary-light to-primary;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

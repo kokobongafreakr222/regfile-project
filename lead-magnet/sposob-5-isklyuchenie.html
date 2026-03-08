@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Способ 5: Исключение из ЕГРЮЛ как недействующее — Regfile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d2137 100%);
+            color: #fff;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '💀';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 60px;
+            opacity: 0.1;
+        }
+        
+        .method-number {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #a0c4ff;
+            font-weight: 600;
+        }
+        
+        .content {
+            padding: 50px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        h2 span {
+            color: #667eea;
+            margin-right: 10px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid #f59e0b;
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 4px solid #ef4444;
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+        }
+        
+        .warning-box strong {
+            color: #991b1b;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .steps-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .steps-list li {
+            padding: 18px 20px 18px 60px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+            border-radius: 12px;
+            position: relative;
+            font-size: 16px;
+        }
+        
+        .steps-list li::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .cost-table {
+            background: #f8fafc;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 25px 0;
+        }
+        
+        .cost-table .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 25px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .cost-table .row:last-child {
+            border-bottom: none;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            font-weight: 700;
+            color: #065f46;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d2137 100%);
+            color: #fff;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #fff;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 20px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -5px rgba(245, 158, 11, 0.5);
+        }
+        
+        .cta-note {
+            font-size: 15px;
+            color: #94a3b8;
+            margin-top: 20px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 40px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: #764ba2;
+        }
+        
+        .nav-link.prev::before {
+            content: '←';
+            margin-right: 10px;
+        }
+        
+        .nav-link.next::after {
+            content: '→';
+            margin-left: 10px;
+        }
+        
+        .nav-link.disabled {
+            color: #94a3b8;
+            pointer-events: none;
+        }
+        
+        .badges {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+        
+        .badge {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .badge.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .badge.danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        @media (max-width: 600px) {
+            .hero, .content, .cta-section, .navigation {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="method-number">Способ 5 из 7</div>
+            <h1>Подождать, пока налоговая сама закроет ваше ООО</h1>
+            <div class="subtitle">«Мёртвые не платят налоги» — логика безумная, но рабочая</div>
+        </div>
+        
+        <div class="content">
+            <!-- Вход -->
+            <div class="section">
+                <h2><span>📍</span>Вход в ситуацию</h2>
+                <p>
+                    Последняя отчётность сдана в 2022-м. Счёт в банке — нулевой. Директор уже год работает в найме и даже не помнит, как называлась эта фирма. Звучит знакомо?
+                </p>
+                <p>
+                    Если по вашей компании нет движения денег, сдачи отчётности и вообще какой-либо активности больше года — она автоматически попадает в категорию «недействующих». И вот тут начинается самое интересное.
+                </p>
+                
+                <div class="highlight-box">
+                    <p><strong>Критерий простой:</strong> нет банковских операций и отчётности 12+ месяцев подряд. Налоговая фиксирует это автоматически. Никаких заявлений писать не надо — вы уже в списке.</p>
+                </div>
+            </div>
+            
+            <!-- Описание процесса -->
+            <div class="section">
+                <h2><span>🔄</span>Как это работает на самом деле</h2>
+                <p>
+                    Налоговая ведёт реестр недействующих организаций. Это не публичный список, а внутренняя база для проверок. Но главное — по этой базе они формируют списки на исключение из ЕГРЮЛ.
+                </p>
+                <p>
+                    Вот что происходит поэтапно:
+                </p>
+                
+                <ul class="steps-list">
+                    <li data-step="1">
+                        <strong>Фиксация бездействия.</strong> Система отмечает: по ИНН нет движения более года. Счёт ушёл в минус на обслуживание или просто пустует.
+                    </li>
+                    <li data-step="2">
+                        <strong>Плановая выездная проверка.</strong> Инспекторы приезжают по юридическому адресу. Если там никого нет или «такой фирмы не знают» — фиксируют невозможность проведения проверки.
+                    </li>
+                    <li data-step="3">
+                        <strong>Формирование списка на исключение.</strong> Ваше ООО включают в список для публикации на сайте ФНС. Это не приговор, а уведомление о намерении.
+                    </li>
+                    <li data-step="4">
+                        <strong>Публикация предупреждения.</strong> На nalog.gov.ru появляется запись: организация будет исключена из ЕГРЮЛ, если не подтвердит деятельность. Дают 3 месяца на ответную реакцию.
+                    </li>
+                    <li data-step="5">
+                        <strong>Исключение из ЕГРЮЛ.</strong> Если молчать — через 3 месяца после публикации компанию исключают. Автоматически. Без вашего участия.
+                    </li>
+                </ul>
+                
+                <p>
+                    Звучит как халява? Да, но есть нюансы. И они жирные.
+                </p>
+            </div>
+            
+            <!-- Подводные камни -->
+            <div class="section">
+                <h2><span>⚠️</span>Подводные камни и риски</h2>
+                
+                <div class="warning-box">
+                    <strong>🚨 Главная ловушка: долги не пропадают</strong>
+                    Исключение из ЕГРЮЛ — это не банкротство. Это не прощение долгов. Это просто вычёркивание из реестра. Если у компании были налоговые задолженности, пени, штрафы — они остаются. И переходят на «лицо, имеющее право действовать от имени юрлица без доверенности». Читай: на директора лично.
+                </div>
+                
+                <p>
+                    <strong>Что реально может аукнуться:</strong>
+                </p>
+                
+                <div class="badges">
+                    <span class="badge danger">Налоговые долги остаются</span>
+                    <span class="badge danger">Штрафы по страховым взносам</span>
+                    <span class="badge warning">Блокировка новых регистраций</span>
+                    <span class="badge">Проблемы с выездом за границу</span>
+                </div>
+                
+                <p>
+                    Да, если долгов нет — исключение проходит чисто. Но кто из нас закрывал ООО с чистой совестью? Обычно компанию «забывают» именно потому, что что-то пошло не так и проще не вспоминать.
+                </p>
+                
+                <p>
+                    <strong>Ещё один момент:</strong> с момента публикации предупреждения на сайте ФНС у вас есть ровно 3 месяца, чтобы «оживить» компанию. Если вдруг понадобится — придётся сдать всю просроченную отчётность, заплатить штрафы, возможно — пройти камеральные проверки. Это дорого и долго.
+                </p>
+                
+                <div class="warning-box">
+                    <strong>💀 История из жизни:</strong>
+                    Клиент решил «подождать исключения» по ООО с долгом 180 тысяч в ПФР. Через полтора года компанию исключили. А потом пришло письмо: личное требование к директору как к должнику. С пенями за всё время — уже 340 тысяч. Подождать получилось. Бесплатно — нет.
+                </div>
+            </div>
+            
+            <!-- Время и деньги -->
+            <div class="section">
+                <h2><span>⏱️</span>Сколько реально нужно времени и денег</h2>
+                
+                <div class="cost-table">
+                    <div class="row">
+                        <span>Время с момента бездействия до попадания в список</span>
+                        <span>12-18 месяцев</span>
+                    </div>
+                    <div class="row">
+                        <span>Время от публикации предупреждения до исключения</span>
+                        <span>3 месяца</span>
+                    </div>
+                    <div class="row">
+                        <span>Общее время ожидания</span>
+                        <span>15-24 месяца</span>
+                    </div>
+                    <div class="row">
+                        <span>Госпошлина</span>
+                        <span>0 ₽</span>
+                    </div>
+                    <div class="row">
+                        <span>Юрист/бухгалтер (если понадобится оспорить)</span>
+                        <span>от 15 000 ₽</span>
+                    </div>
+                    <div class="row">
+                        <span><strong>Итого при идеальном сценарии (без долгов)</strong></span>
+                        <span><strong>0 ₽ и 1.5-2 года</strong></span>
+                    </div>
+                </div>
+                
+                <p>
+                    <strong>Но вот вопрос:</strong> вы готовы два года жить с навесом над головой? Не знать, когда именно придёт письмо, не быть уверенным, что долгов точно нет, объяснять банкам и контрагентам, почему компания «в процессе»?
+                </p>
+                
+                <div class="highlight-box">
+                    <p><strong>Мораль простая:</strong> этот способ работает только если у вас точно нет долгов, вы точно не планируете использовать компанию снова, и вам действительно всё равно — просто вычеркнуть из списка дел и забыть.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Не хотите ждать неизвестно сколько?</h2>
+            <p style="font-size: 18px; color: #cbd5e1; margin-bottom: 25px;">
+                Мы закроем ООО за 7 дней — с гарантией, без вашего участия в налоговой и с полным пакетом документов
+            </p>
+            <a href="https://regfile.ru/zakrytie-ooo" class="cta-button">
+                Закрыть ООО быстро и чисто
+            </a>
+            <p class="cta-note">
+                Бесплатная консультация → проверим долги → предложим оптимальный способ → сделаем всё под ключ
+            </p>
+        </div>
+        
+        <!-- Навигация -->
+        <div class="navigation">
+            <a href="sposob-4-alternativnaya.html" class="nav-link prev">
+                ← Способ 4: Добровольная ликвидация
+            </a>
+            <a href="sposob-6-reorganizaciya.html" class="nav-link next">
+                Способ 6: Банкротство →
+            </a>
+        </div>
+    </div>
+</body>
+</html>
